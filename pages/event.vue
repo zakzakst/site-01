@@ -1,15 +1,6 @@
 <template>
   <v-layout class="flex-column">
-    <v-container class="top__container top__container--hero is-img-left">
-      <v-row>
-        <v-col cols="6" offset="6" class="px-8 py-12">
-          <h1 class="text-h3 mb-4">タイトルが入ります</h1>
-          <p>テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。</p>
-          <p>テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。</p>
-          <p>テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。<br>テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。</p>
-        </v-col>
-      </v-row>
-    </v-container>
+
     <v-container class="top__container top__container--info is-img-right">
       <v-row>
         <v-col cols="6" class="px-8 py-12">
@@ -36,32 +27,32 @@
       <v-row>
         <v-col cols="6" offset="6" class="px-8 py-12">
           <h2 class="text-h4 mb-4">イベント</h2>
-          <p>テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。</p>
+          <p>テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。</p>
           <p>テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。</p>
           <h3 class="text-h5 mt-8">最近追加されたイベント</h3>
-          <transition name="fade">
-            <v-row v-if="!loading">
-              <v-col v-for="n in 2" :key="n" cols="6">
-                <v-card :to="newsList[n - 1].link" hover>
-                  <v-img class="white--text align-end" height="150px" :src="newsList[n - 1].img"></v-img>
-                  <v-card-subtitle>{{ newsList[n - 1].title }}</v-card-subtitle>
-                  <v-card-text>{{ newsList[n - 1].text }}</v-card-text>
-                </v-card>
-              </v-col>
-            </v-row>
-          </transition>
-          <transition name="fade">
-            <v-row v-if="loading">
-              <v-col cols="6">
-                <v-skeleton-loader type="image, card-heading, list-item-three-line"></v-skeleton-loader>
-              </v-col>
-              <v-col cols="6">
-                <v-skeleton-loader type="image, card-heading, list-item-three-line"></v-skeleton-loader>
-              </v-col>
-            </v-row>
-          </transition>
-          <v-alert v-if="error" type="warning">データの取得に失敗しました</v-alert>
-          <v-btn color="primary mt-4" to="/event">イベント一覧を見る</v-btn>
+          <v-row>
+            <v-col cols="6">
+              <v-card href="test" hover>
+                <v-img class="white--text align-end" height="150px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
+                  <v-card-title>タイトルタイトルタイトルタイトル</v-card-title>
+                </v-img>
+                <v-card-subtitle class="pb-0">サブタイトル</v-card-subtitle>
+                <v-card-text class="text--primary">テキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト</v-card-text>
+              </v-card>
+            </v-col>
+            <v-col cols="6">
+              <v-card href="test" hover>
+                <v-img class="white--text align-end" height="150px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
+                  <v-card-title>タイトルタイトルタイトルタイトル</v-card-title>
+                </v-img>
+                <v-card-subtitle class="pb-0">サブタイトル</v-card-subtitle>
+                <v-card-text class="text--primary">テキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト</v-card-text>
+              </v-card>
+            </v-col>
+            <v-col cols="12">
+              <v-btn color="primary">イベント一覧を見る</v-btn>
+            </v-col>
+          </v-row>
         </v-col>
       </v-row>
     </v-container>
@@ -69,19 +60,19 @@
       <v-row>
         <v-col cols="6" class="px-8 py-12">
           <h2 class="text-h4 mb-4">お問い合わせ</h2>
-          <v-form>
+          <v-form ref="myForm" name="myForm" target="_blank" action="https://s-ishizaki.sakura.ne.jp/" method="get">
             <v-row>
-              <v-col cols="6">
-                <v-text-field label="性" placeholder="山田" outlined></v-text-field>
-              </v-col>
-              <v-col cols="6">
-                <v-text-field label="名" placeholder="太郎" outlined></v-text-field>
+              <v-col cols="12">
+                <v-text-field name="lastName" counter="10" label="性" placeholder="山田" outlined required></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field label="メールアドレス" placeholder="yamada@taro.co.jp" outlined></v-text-field>
+                <v-text-field name="firstName" counter="10" label="名" placeholder="太郎" outlined required></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-textarea label="お問い合わせ内容" placeholder="お問い合わせ内容を入力してください" outlined></v-textarea>
+                <v-text-field name="mail" label="メールアドレス" placeholder="yamada@taro.co.jp" outlined required></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-textarea name="contact" label="お問い合わせ内容" placeholder="お問い合わせ内容を入力してください" counter="400" outlined></v-textarea>
               </v-col>
               <v-col cols="12">
                 <v-btn class="mr-4" color="primary">送信</v-btn>
@@ -96,7 +87,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   data() {
     return {
@@ -126,24 +116,7 @@ export default {
           text: '東京都○○区○○町 0-00-00',
         },
       ],
-      newsList: [],
-      loading: true,
-      error: false,
     }
-  },
-  mounted () {
-    axios
-      .get('/news-list.json')
-      .then(res => {
-        this.newsList = res.data;
-      })
-      .catch(error => {
-        console.log(error);
-        this.error = true;
-      })
-      .finally(() => {
-        this.loading = false;
-      });
   }
 }
 </script>
@@ -183,11 +156,4 @@ export default {
 .top__container.is-img-right::before {
   left: 50%;
 }
-
-/* .fade-enter-active {
-  transition: opacity 1s;
-}
-.fade-enter {
-  opacity: 0;
-} */
 </style>
