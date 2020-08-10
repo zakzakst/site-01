@@ -1,0 +1,26 @@
+[
+  {
+    "title": "タイトル1",
+    "link": "test",
+    "img": "https://cdn.vuetifyjs.com/images/cards/docks.jpg",
+    "text": "テキストテキストテキストテキストテキストテキストテキストテキストテキスト"
+  },
+  {
+    "title": "タイトル2",
+    "link": "test",
+    "img": "https://cdn.vuetifyjs.com/images/cards/docks.jpg",
+    "text": "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト"
+  },
+  {
+    "title": "タイトル3",
+    "link": "test",
+    "img": "https://cdn.vuetifyjs.com/images/cards/docks.jpg",
+    "text": "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト"
+  },
+  {
+    "title": "タイトル4",
+    "link": "test",
+    "img": "https://cdn.vuetifyjs.com/images/cards/docks.jpg",
+    "text": "テキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト"
+  }
+]
