@@ -67,7 +67,9 @@ export default {
   ** https://github.com/nuxt-community/vuetify-module
   */
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
+    // エラーが出たためコメントアウト
+    // 参考：https://github.com/nuxt-community/vuetify-module/issues/82
+    // customVariables: ['~/assets/variables.scss'],
     theme: {
       // dark: true,
       themes: {

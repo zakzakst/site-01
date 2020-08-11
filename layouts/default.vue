@@ -3,9 +3,7 @@
     <site-header />
 
     <v-main>
-      <transition name="content" mode="out-in">
-        <nuxt />
-      </transition>
+      <nuxt />
     </v-main>
 
     <site-footer />
@@ -30,10 +28,4 @@ export default {
 </script>
 
 <style>
-.content-enter-active, .content-leave-active {
-  transition: opacity .5s;
-}
-.content-enter, .content-leave-to {
-  opacity: 0;
-}
 </style>
