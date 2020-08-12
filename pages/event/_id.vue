@@ -2,20 +2,24 @@
   <v-layout class="flex-column">
     <v-img
       height="240"
-      src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
+      :src="mainImg"
       class="grey lighten-1"
     >
     </v-img>
     <v-container class="event__title">
-      <h1>{{ title }}</h1>
+      <h1 class="text-center">{{ title }}</h1>
     </v-container>
     <v-container>
-      <div v-if="content" v-html="content"></div>
-      <div v-else>
-        <v-skeleton-loader type="heading" class="mb-2"></v-skeleton-loader>
-        <v-skeleton-loader type="paragraph, paragraph, paragraph"></v-skeleton-loader>
-      </div>
-      <v-alert v-if="error" type="warning">データの取得に失敗しました</v-alert>
+      <v-row>
+        <v-col cols="8" offset="2">
+          <div v-if="content" v-html="content"></div>
+          <div v-else>
+            <v-skeleton-loader type="heading" class="mb-4"></v-skeleton-loader>
+            <v-skeleton-loader type="paragraph, paragraph, paragraph"></v-skeleton-loader>
+          </div>
+          <v-alert v-if="error" type="warning">データの取得に失敗しました</v-alert>
+        </v-col>
+      </v-row>
     </v-container>
   </v-layout>
 </template>
@@ -28,6 +32,7 @@ export default {
       loading: true,
       title: '',
       content: '',
+      mainImg: '',
       error: false,
     }
   },
@@ -37,9 +42,11 @@ export default {
     axios
       .get(`/${id}.json`)
       .then(res => {
-        console.log(res);
-        this.title = res.data.title;
-        this.content = res.data.content;
+        const data = res.data;
+        this.title = data.title;
+        this.content = data.content;
+        this.description = data.description;
+        this.mainImg = data.mainImg;
       })
       .catch(error => {
         console.log(error);
@@ -48,6 +55,18 @@ export default {
       .finally(() => {
         this.loading = false;
       });
+  },
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.description
+        }
+      ]
+    }
   }
 }
 </script>
