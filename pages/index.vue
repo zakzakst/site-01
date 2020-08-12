@@ -41,10 +41,10 @@
           <h3 class="text-h5 mt-8">最近追加されたイベント</h3>
           <v-row v-if="!loading">
             <v-col v-for="n in 2" :key="n" cols="6">
-              <v-card :to="`event/${newsList[n - 1].link}`" hover>
-                <v-img class="white--text align-end" height="150px" :src="newsList[n - 1].img"></v-img>
-                <v-card-subtitle>{{ newsList[n - 1].title }}</v-card-subtitle>
-                <v-card-text>{{ newsList[n - 1].text }}</v-card-text>
+              <v-card :to="`event/${eventList[n - 1].link}`" hover>
+                <v-img class="white--text align-end" height="150px" :src="eventList[n - 1].img"></v-img>
+                <v-card-subtitle>{{ eventList[n - 1].title }}</v-card-subtitle>
+                <v-card-text>{{ eventList[n - 1].text }}</v-card-text>
               </v-card>
             </v-col>
           </v-row>
@@ -119,16 +119,16 @@ export default {
           text: '東京都○○区○○町 0-00-00',
         },
       ],
-      newsList: [],
+      eventList: [],
       loading: true,
       error: false,
     }
   },
   mounted () {
     axios
-      .get('/news-list.json')
+      .get('/event-list.json')
       .then(res => {
-        this.newsList = res.data;
+        this.eventList = res.data;
       })
       .catch(error => {
         console.log(error);
@@ -137,6 +137,18 @@ export default {
       .finally(() => {
         this.loading = false;
       });
+  },
+  head() {
+    return {
+      title: 'トップページ',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'トップページ概要が入ります。トップページ概要が入ります。トップページ概要が入ります。'
+        }
+      ]
+    }
   }
 }
 </script>

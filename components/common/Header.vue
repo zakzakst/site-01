@@ -15,11 +15,11 @@ export default {
       navLinks: [
         {
           to: '/',
-          label: 'トップページ',
+          label: 'トップ',
         },
         {
           to: '/event',
-          label: 'イベント一覧',
+          label: 'イベント',
         },
       ]
     }

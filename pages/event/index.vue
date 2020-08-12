@@ -7,15 +7,15 @@
     >
     </v-img>
     <v-container class="event__title">
-      <h1>イベント一覧</h1>
+      <h1 class="text-center">イベント一覧</h1>
     </v-container>
     <v-container>
       <v-row v-if="!loading">
-        <v-col v-for="(news, index) in newsList" :key="index" cols="3">
-          <v-card :to="`event/${news.link}`" hover>
-            <v-img class="white--text align-end" height="150px" :src="news.img"></v-img>
-            <v-card-subtitle>{{ news.title }}</v-card-subtitle>
-            <v-card-text>{{ news.text }}</v-card-text>
+        <v-col v-for="(event, index) in eventList" :key="index" cols="3">
+          <v-card :to="`event/${event.link}`" hover>
+            <v-img class="white--text align-end" height="150px" :src="event.img"></v-img>
+            <v-card-subtitle>{{ event.title }}</v-card-subtitle>
+            <v-card-text>{{ event.text }}</v-card-text>
           </v-card>
         </v-col>
       </v-row>
@@ -26,6 +26,11 @@
       </v-row>
       <v-alert v-if="error" type="warning">データの取得に失敗しました</v-alert>
     </v-container>
+    <v-container>
+      <div class="text-center">
+        <v-pagination v-model="page" :length="6"></v-pagination>
+      </div>
+    </v-container>
   </v-layout>
 </template>
 
@@ -34,16 +39,17 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      newsList: [],
+      eventList: [],
       loading: true,
       error: false,
+      page: 1
     }
   },
   mounted () {
     axios
-      .get('/news-list.json')
+      .get('/event-list.json')
       .then(res => {
-        this.newsList = res.data;
+        this.eventList = res.data;
       })
       .catch(error => {
         console.log(error);
@@ -52,6 +58,18 @@ export default {
       .finally(() => {
         this.loading = false;
       });
+  },
+  head() {
+    return {
+      title: 'イベント一覧',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'イベント一覧のページ概要が入ります。イベント一覧のページ概要が入ります。イベント一覧のページ概要が入ります。'
+        }
+      ]
+    }
   }
 }
 </script>
