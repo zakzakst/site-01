@@ -19,11 +19,11 @@
           </div>
           <v-alert v-if="contentError" type="warning">データの取得に失敗しました</v-alert>
           <div class="text-center">
-            <v-btn class="ma-2" :to="prevItem.link" v-if="prevItem">
+            <v-btn class="ma-2" :to="`${prevItem.link}?item=prev`" v-if="prevItem">
               <v-icon left>mdi-chevron-left</v-icon>
               {{ prevItem.title }}
             </v-btn>
-            <v-btn class="ma-2" :to="nextItem.link" v-if="nextItem">
+            <v-btn class="ma-2" :to="`${nextItem.link}?item=next`" v-if="nextItem">
               {{ nextItem.title }}
               <v-icon right>mdi-chevron-right</v-icon>
             </v-btn>
@@ -57,7 +57,7 @@ export default {
   mounted () {
     const id = this.$route.params.id;
     axios
-      .get(`/${id}.json`)
+      .get(`/event-data/${id}.json`)
       .then(res => {
         const data = res.data;
         this.title = data.title;
@@ -82,8 +82,8 @@ export default {
         });
         const currentIndex = value.indexOf(currentItem);
         this.currentIndex = currentIndex;
-        this.nextItem = value[currentIndex + 1] || '';
-        this.prevItem = value[currentIndex - 1] || '';
+        this.nextItem = value[currentIndex + 1] || null;
+        this.prevItem = value[currentIndex - 1] || null;
       }
     }
   },
@@ -98,7 +98,22 @@ export default {
         }
       ]
     }
-  }
+  },
+  transition(to, from) {
+    // 初期読み込みの場合は通常のトランジション
+    if(!from) {
+      return 'default';
+    }
+
+    const itemQuery = to.query.item;
+    if(itemQuery === 'prev') {
+      return 'slide-right';
+    } else if(itemQuery === 'next') {
+      return 'slide-left';
+    } else {
+      return 'default';
+    }
+  },
 }
 </script>
 

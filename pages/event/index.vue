@@ -83,7 +83,8 @@ export default {
         }
       ]
     }
-  }
+  },
+  transition: 'default'
 }
 </script>
 
