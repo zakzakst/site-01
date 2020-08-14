@@ -39,7 +39,7 @@
           <p>テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。</p>
           <p>テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。</p>
           <h3 class="text-h5 mt-8">最近追加されたイベント</h3>
-          <v-row v-if="!loading">
+          <v-row v-if="eventList">
             <v-col v-for="n in 2" :key="n" cols="6">
               <v-card :to="`event/${eventList[n - 1].link}`" hover>
                 <v-img class="white--text align-end" height="150px" :src="eventList[n - 1].img"></v-img>
@@ -48,12 +48,12 @@
               </v-card>
             </v-col>
           </v-row>
-          <v-row v-if="loading">
+          <v-row v-if="!eventList">
             <v-col v-for="n in 2" :key="n" cols="6">
               <v-skeleton-loader type="image, card-heading, list-item-three-line"></v-skeleton-loader>
             </v-col>
           </v-row>
-          <v-alert v-if="error" type="warning">データの取得に失敗しました</v-alert>
+          <!-- <v-alert v-if="error" type="warning">データの取得に失敗しました</v-alert> -->
           <v-btn color="primary mt-4" to="/event">イベント一覧を見る</v-btn>
         </v-col>
       </v-row>
@@ -89,7 +89,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
+import eventMixin from '~/mixins/eventMixin';
 export default {
   data() {
     return {
@@ -119,25 +120,28 @@ export default {
           text: '東京都○○区○○町 0-00-00',
         },
       ],
-      eventList: [],
-      loading: true,
-      error: false,
+      // eventList: [],
+      // loading: true,
+      // error: false,
     }
   },
-  mounted () {
-    axios
-      .get('/event-list.json')
-      .then(res => {
-        this.eventList = res.data;
-      })
-      .catch(error => {
-        console.log(error);
-        this.error = true;
-      })
-      .finally(() => {
-        this.loading = false;
-      });
-  },
+  mixins: [
+    eventMixin
+  ],
+  // mounted () {
+  //   axios
+  //     .get('/event-list.json')
+  //     .then(res => {
+  //       this.eventList = res.data;
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //       this.error = true;
+  //     })
+  //     .finally(() => {
+  //       this.loading = false;
+  //     });
+  // },
   head() {
     return {
       title: 'トップページ',
