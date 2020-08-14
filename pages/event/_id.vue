@@ -104,10 +104,10 @@ export default {
         },
         { property: 'og:title', content: this.title },
         { property: 'og:description', content: this.description },
-        { property: 'og:url', content: process.env.SITE_DOMAIN + process.env.SITE_ROOT_PATH + 'event/' },
+        { property: 'og:url', content: process.env.SITE_DOMAIN + process.env.SITE_ROOT_PATH + 'event/' + this.$route.params.id + '/' },
       ],
       link: [
-        { rel: 'canonical', href: process.env.SITE_DOMAIN + process.env.SITE_ROOT_PATH + 'event/' },
+        { rel: 'canonical', href: process.env.SITE_DOMAIN + process.env.SITE_ROOT_PATH + 'event/' + this.$route.params.id + '/' },
       ]
     }
   },
