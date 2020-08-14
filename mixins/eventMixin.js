@@ -1,5 +1,5 @@
 export default {
-  created() {
+  mounted() {
     if(!this.eventList) {
       this.$store.dispatch('loadEventList');
     }
