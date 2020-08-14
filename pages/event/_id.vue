@@ -13,11 +13,21 @@
       <v-row>
         <v-col cols="8" offset="2">
           <div v-if="content" v-html="content"></div>
-          <div v-if="loading">
+          <div v-if="contentLoading">
             <v-skeleton-loader type="heading" class="mb-4"></v-skeleton-loader>
             <v-skeleton-loader type="paragraph, paragraph, paragraph"></v-skeleton-loader>
           </div>
-          <v-alert v-if="error" type="warning">データの取得に失敗しました</v-alert>
+          <v-alert v-if="contentError" type="warning">データの取得に失敗しました</v-alert>
+          <div class="text-center">
+            <v-btn class="ma-2" :to="prevItem.link" v-if="prevItem">
+              <v-icon left>mdi-chevron-left</v-icon>
+              {{ prevItem.title }}
+            </v-btn>
+            <v-btn class="ma-2" :to="nextItem.link" v-if="nextItem">
+              {{ nextItem.title }}
+              <v-icon right>mdi-chevron-right</v-icon>
+            </v-btn>
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -26,19 +36,26 @@
 
 <script>
 import axios from 'axios'
+import eventMixin from '~/mixins/eventMixin2';
+
 export default {
   data() {
     return {
-      loading: true,
       title: '',
       content: '',
       mainImg: '',
-      error: false,
+      contentLoading: true,
+      contentError: false,
+      currentIndex: '',
+      nextItem: null,
+      prevItem: null,
     }
   },
+  mixins: [
+    eventMixin
+  ],
   mounted () {
     const id = this.$route.params.id;
-    console.log(id);
     axios
       .get(`/${id}.json`)
       .then(res => {
@@ -50,11 +67,25 @@ export default {
       })
       .catch(error => {
         console.log(error);
-        this.error = true;
+        this.contentError = true;
       })
       .finally(() => {
-        this.loading = false;
+        this.contentLoading = false;
       });
+  },
+  watch: {
+    eventList(value) {
+      if(value.length) {
+        const id = this.$route.params.id;
+        const currentItem = value.find(item => {
+          return item.link === id;
+        });
+        const currentIndex = value.indexOf(currentItem);
+        this.currentIndex = currentIndex;
+        this.nextItem = value[currentIndex + 1] || '';
+        this.prevItem = value[currentIndex - 1] || '';
+      }
+    }
   },
   head() {
     return {
