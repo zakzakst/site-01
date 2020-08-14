@@ -1,6 +1,6 @@
 <template>
   <div class="header__wrapper">
-    <v-app-bar :elevation="4" class="header rounded-pill">
+    <v-app-bar :elevation="4" class="header rounded">
       <v-toolbar-title>LOGO</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn v-for="(link, index) in navLinks" :key="index" text :to="link.to">{{ link.label }}</v-btn>
@@ -41,5 +41,6 @@ export default {
 .header {
   padding-left: 24px;
   padding-right: 24px;
+
 }
 </style>
