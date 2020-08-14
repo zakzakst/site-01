@@ -10,8 +10,8 @@
       <h1 class="text-center">イベント一覧</h1>
     </v-container>
     <v-container>
-      <v-row v-if="eventList">
-        <v-col v-for="(event, index) in eventList" :key="index" cols="3">
+      <v-row v-if="displayList.length">
+        <v-col v-for="(event, index) in displayList" :key="index" cols="3">
           <v-card :to="`event/${event.link}`" hover>
             <v-img class="white--text align-end" height="150px" :src="event.img"></v-img>
             <v-card-subtitle>{{ event.title }}</v-card-subtitle>
@@ -19,51 +19,59 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row v-if="!eventList">
+      <v-row v-if="loading">
         <v-col v-for="n in 8" :key="n" cols="3">
           <v-skeleton-loader type="image, card-heading, list-item-three-line"></v-skeleton-loader>
         </v-col>
       </v-row>
-      <!-- <v-alert v-if="error" type="warning">データの取得に失敗しました</v-alert> -->
+      <v-alert v-if="error" type="warning">データの取得に失敗しました</v-alert>
     </v-container>
     <v-container>
       <div class="text-center">
-        <v-pagination v-model="page" :length="6"></v-pagination>
+        <v-pagination
+          v-model="listIndex"
+          :length="listLength"
+          :total-visible="5"
+          @input="changeDisplayEvent"
+        ></v-pagination>
       </div>
     </v-container>
   </v-layout>
 </template>
 
 <script>
-// import axios from 'axios'
-import eventMixin from '~/mixins/eventMixin';
+import eventMixin from '~/mixins/eventMixin2';
 
 export default {
   data() {
     return {
-      // eventList: [],
-      // loading: true,
-      // error: false,
-      page: 1
+      listIndex: 1,
+      listLength: 0,
+      displayList: [],
+      displayNum: 8,
     }
   },
   mixins: [
     eventMixin
   ],
-  // mounted () {
-  //   axios
-  //     .get('/event-list.json')
-  //     .then(res => {
-  //       this.eventList = res.data;
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //       this.error = true;
-  //     })
-  //     .finally(() => {
-  //       this.loading = false;
-  //     });
-  // },
+  methods: {
+    changeDisplayEvent() {
+      const startIndex = this.displayNum * (this.listIndex - 1);
+      const endIndex = startIndex + this.displayNum;
+      this.displayList = this.eventList.slice(startIndex, endIndex);
+    },
+    setListLength() {
+      this.listLength = Math.ceil(this.eventList.length / this.displayNum);
+    }
+  },
+  watch: {
+    eventList(value) {
+      if(value.length) {
+        this.setListLength();
+        this.changeDisplayEvent();
+      }
+    }
+  },
   head() {
     return {
       title: 'イベント一覧',

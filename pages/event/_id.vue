@@ -13,7 +13,7 @@
       <v-row>
         <v-col cols="8" offset="2">
           <div v-if="content" v-html="content"></div>
-          <div v-else>
+          <div v-if="loading">
             <v-skeleton-loader type="heading" class="mb-4"></v-skeleton-loader>
             <v-skeleton-loader type="paragraph, paragraph, paragraph"></v-skeleton-loader>
           </div>
