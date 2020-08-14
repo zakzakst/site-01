@@ -19,11 +19,11 @@
           </div>
           <v-alert v-if="contentError" type="warning">データの取得に失敗しました</v-alert>
           <div class="text-center">
-            <v-btn class="ma-2" :to="`${prevItem.link}?item=prev`" v-if="prevItem">
+            <v-btn class="ma-2" :to="`/event/${prevItem.link}/?item=prev`" v-if="prevItem">
               <v-icon left>mdi-chevron-left</v-icon>
               {{ prevItem.title }}
             </v-btn>
-            <v-btn class="ma-2" :to="`${nextItem.link}?item=next`" v-if="nextItem">
+            <v-btn class="ma-2" :to="`/event/${nextItem.link}/?item=next`" v-if="nextItem">
               {{ nextItem.title }}
               <v-icon right>mdi-chevron-right</v-icon>
             </v-btn>

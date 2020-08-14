@@ -41,7 +41,7 @@
           <h3 class="text-h5 mt-8">最近追加されたイベント</h3>
           <v-row v-if="eventList.length">
             <v-col v-for="n in 2" :key="n" cols="6">
-              <v-card :to="`event/${eventList[n - 1].link}`" hover>
+              <v-card :to="`/event/${eventList[n - 1].link}/`" hover>
                 <v-img class="white--text align-end" height="150px" :src="eventList[n - 1].img"></v-img>
                 <v-card-subtitle>{{ eventList[n - 1].title }}</v-card-subtitle>
                 <v-card-text>{{ eventList[n - 1].text }}</v-card-text>
@@ -54,7 +54,7 @@
             </v-col>
           </v-row>
           <v-alert v-if="error" type="warning">データの取得に失敗しました</v-alert>
-          <v-btn color="primary mt-4" to="/event">イベント一覧を見る</v-btn>
+          <v-btn color="primary mt-4" to="/event/">イベント一覧を見る</v-btn>
         </v-col>
       </v-row>
     </v-container>

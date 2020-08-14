@@ -18,7 +18,7 @@ export default {
           label: 'トップ',
         },
         {
-          to: '/event',
+          to: '/event/',
           label: 'イベント',
         },
       ]

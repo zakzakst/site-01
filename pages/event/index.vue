@@ -12,7 +12,7 @@
     <v-container>
       <v-row v-if="displayList.length">
         <v-col v-for="(event, index) in displayList" :key="index" cols="3">
-          <v-card :to="`event/${event.link}`" hover>
+          <v-card :to="`/event/${event.link}/`" hover>
             <v-img class="white--text align-end" height="150px" :src="event.img"></v-img>
             <v-card-subtitle>{{ event.title }}</v-card-subtitle>
             <v-card-text>{{ event.text }}</v-card-text>
