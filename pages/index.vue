@@ -39,7 +39,7 @@
           <p>テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。</p>
           <p>テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。</p>
           <h3 class="text-h5 mt-8">最近追加されたイベント</h3>
-          <v-row v-if="eventList.length">
+          <v-row v-if="eventList">
             <v-col v-for="n in 2" :key="n" cols="6">
               <v-card :to="`/event/${eventList[n - 1].link}/`" hover>
                 <v-img class="white--text align-end" height="150px" :src="eventList[n - 1].img"></v-img>
@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import eventMixin from '~/mixins/eventMixin2';
+import eventMixin from '~/mixins/eventMixin';
 export default {
   data() {
     return {
@@ -128,11 +128,13 @@ export default {
     return {
       title: 'トップページ',
       meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'トップページ概要が入ります。トップページ概要が入ります。トップページ概要が入ります。'
-        }
+        { hid: 'description', name: 'description', content: 'トップページ概要が入ります。トップページ概要が入ります。トップページ概要が入ります。' },
+        { property: 'og:title', content: 'トップページ' },
+        { property: 'og:description', content: 'トップページ概要が入ります。トップページ概要が入ります。トップページ概要が入ります。' },
+        { property: 'og:url', content: process.env.SITE_DOMAIN + process.env.SITE_ROOT_PATH },
+      ],
+      link: [
+        { rel: 'canonical', href: process.env.SITE_DOMAIN + process.env.SITE_ROOT_PATH },
       ]
     }
   },

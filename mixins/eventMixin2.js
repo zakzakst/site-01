@@ -9,7 +9,7 @@ export default {
   },
   mounted () {
     axios
-      .get('/event-data/event-list.json')
+      .get(process.env.SITE_ROOT_PATH + 'event-data/event-list.json')
       .then(res => {
         this.eventList = res.data;
       })

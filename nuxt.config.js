@@ -18,15 +18,20 @@ export default {
   ** See https://nuxtjs.org/api/configuration-head
   */
   head: {
-    titleTemplate: '%s｜石崎悟士のWebサイト',
+    titleTemplate: '%s｜' + process.env.SITE_NAME,
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', content: '' },
+      { property: 'og:locale', content: 'ja_JP' },
+      { property: 'og:type', content: 'article' },
+      { property: 'og:site_name', content: process.env.SITE_NAME },
+      { property: 'og:image', content: process.env.SITE_OG_IMAGE }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: process.env.SITE_SHORTCUT_ICON },
+      { rel: 'apple-touch-icon', type: 'image/png', href: process.env.SITE_APPLE_ICON },
       { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css' }
     ]
   },
@@ -58,6 +63,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/dotenv',
   ],
   /*
   ** Axios module configuration
@@ -94,9 +100,6 @@ export default {
   build: {
   },
   generate: {
-    // routes: [
-    //   '/event/20200811',
-    // ]
     routes() {
       return eventList.map(item => {
         return `event/${item.link}`
@@ -104,6 +107,7 @@ export default {
     }
   },
   router: {
+    base: process.env.SITE_ROOT_PATH,
     trailingSlash: true,
     middleware: 'redirect',
   }
