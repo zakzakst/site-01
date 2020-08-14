@@ -9,7 +9,7 @@ export default {
   },
   mounted () {
     axios
-      .get('/event-list.json')
+      .get('/event-data/event-list.json')
       .then(res => {
         this.eventList = res.data;
       })

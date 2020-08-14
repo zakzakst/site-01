@@ -13,7 +13,7 @@ export const mutations = {
 export const actions = {
   loadEventList({commit}) {
     axios
-      .get('/event-list.json')
+      .get('/event-data/event-list.json')
       .then(res => {
         commit('setEventList', res.data);
         console.log(res.data);
