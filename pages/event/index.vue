@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import eventMixin from '~/mixins/eventMixin2';
+import eventMixin from '~/mixins/eventMixin';
 
 export default {
   data() {
@@ -62,6 +62,12 @@ export default {
     },
     setListLength() {
       this.listLength = Math.ceil(this.eventList.length / this.displayNum);
+    },
+  },
+  created() {
+    if(this.eventList) {
+      this.setListLength();
+      this.changeDisplayEvent();
     }
   },
   watch: {
@@ -76,11 +82,13 @@ export default {
     return {
       title: 'イベント一覧',
       meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'イベント一覧のページ概要が入ります。イベント一覧のページ概要が入ります。イベント一覧のページ概要が入ります。'
-        }
+        { hid: 'description', name: 'description', content: 'イベント一覧のページ概要が入ります。イベント一覧のページ概要が入ります。イベント一覧のページ概要が入ります。' },
+        { property: 'og:title', content: 'イベント一覧' },
+        { property: 'og:description', content: 'イベント一覧のページ概要が入ります。イベント一覧のページ概要が入ります。イベント一覧のページ概要が入ります。' },
+        { property: 'og:url', content: process.env.SITE_DOMAIN + process.env.SITE_ROOT_PATH + 'event/' },
+      ],
+      link: [
+        { rel: 'canonical', href: process.env.SITE_DOMAIN + process.env.SITE_ROOT_PATH + 'event/' },
       ]
     }
   },

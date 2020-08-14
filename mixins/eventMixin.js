@@ -7,6 +7,12 @@ export default {
   computed: {
     eventList() {
       return this.$store.getters['eventList'];
+    },
+    loading() {
+      return this.$store.getters['loading'];
+    },
+    error() {
+      return this.$store.getters['error'];
     }
   }
 }
